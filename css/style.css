@@ -1,0 +1,659 @@
+/* ARQUIVO CSS COMPLETO E DEFINITIVO (css/style.css) */
+
+body {
+    font-family: sans-serif; margin: 20px; background-color: #f4f4f4; color: #333;
+}
+h1, h2 { color: #333; border-bottom: 1px solid #ccc; padding-bottom: 5px; }
+a { color: #007bff; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ========================================= */
+/* ============== BRANDING ============== */
+/* ========================================= */
+.main-title-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+.main-logo {
+    height: 55px;
+    width: auto;
+    flex-shrink: 0;
+}
+.main-title-container h1 {
+    margin: 0;
+    border-bottom: none;
+    padding-bottom: 0;
+    font-size: 2.2em;
+}
+footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
+    color: #888;
+    font-size: 0.9em;
+}
+
+/* ========================================= */
+/* ============== COMPONENTES GERAIS ============== */
+/* ========================================= */
+.flash-message { padding: 15px; margin-bottom: 20px; border: 1px solid transparent; border-radius: 4px; }
+.flash-message.success { color: #155724; background-color: #d4edda; border-color: #c3e6cb; }
+.flash-message.error { color: #721c24; background-color: #f8d7da; border-color: #f5c6cb; }
+.flash-message.warning { color: #856404; background-color: #fff3cd; border-color: #ffeeba; }
+
+table { width: 100%; border-collapse: collapse; margin-bottom: 20px; background-color: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+th { background-color: #e9ecef; color: #495057; }
+
+form { background-color: #fff; padding: 20px; border-radius: 5px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 20px; }
+label { display: block; margin-bottom: 5px; font-weight: bold; }
+input[type="text"], input[type="date"], input[type="number"], select, textarea { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 0.95em; }
+textarea { min-height: 80px; resize: vertical; }
+small { font-size: 0.8em; color: #6c757d; display: block; margin-top: -10px; margin-bottom: 10px; }
+
+button, input[type="submit"], .button-link {
+    background-color: #007bff; color: white !important; padding: 10px 15px; border: none;
+    border-radius: 4px; cursor: pointer; font-size: 1em; text-decoration: none; display: inline-block;
+    vertical-align: middle; transition: background-color 0.2s ease;
+}
+button:hover, input[type="submit"]:hover, .button-link:hover { background-color: #0056b3; text-decoration: none; }
+button:disabled { background-color: #cccccc; cursor: not-allowed; opacity: 0.7; }
+.btn-danger { background-color: #dc3545; } .btn-danger:hover { background-color: #c82333; }
+.btn-secondary { background-color: #6c757d; } .btn-secondary:hover { background-color: #5a6268; }
+
+.bombeiro-inativo td { color: #aaa; text-decoration: line-through; }
+#fixo-fields { display: none; padding-left: 20px; border-left: 3px solid #007bff; margin-top: 15px; margin-bottom: 15px; background-color: #f8f9fa; padding-top: 10px; padding-bottom: 1px; border-radius: 0 4px 4px 0; }
+#fixo-fields p { margin-top: 0; font-weight: bold; color: #333;}
+.visible { display: block !important; }
+
+.form-section { margin-bottom: 25px; padding: 20px; border: 1px solid #e9ecef; border-radius: 5px; background-color: #fdfdfd; }
+.form-section h3 { margin-top: 0; margin-bottom: 20px; font-size: 1.15em; color: #495057; border-bottom: 1px solid #dee2e6; padding-bottom: 10px; }
+
+.calendar-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.calendar-nav h2 { margin: 0; border: none; color: #495057; }
+
+.calendar { table-layout: fixed; }
+.calendar th { text-align: center; background-color: #6c757d; color: white; font-size: 0.9em; font-weight: 600; padding: 10px 5px; }
+.calendar td { height: 180px; vertical-align: top; position: relative; padding: 4px; font-size: 0.9em; background-color: #fff; border: 1px solid #eee; }
+.calendar td.weekend { background-color: #f8f9fa; }
+.calendar td.other-month { background-color: #e9ecef; color: #aaa; }
+.calendar td:hover { background-color: #fcfcfc; }
+.day-number { position: absolute; top: 5px; right: 7px; font-size: 1.1em; color: #555; font-weight: bold; z-index: 5; }
+.cell-icons-top { position: absolute; top: 4px; left: 4px; display: flex; align-items: center; gap: 6px; }
+.btn-detalhes { cursor: pointer; font-size: 1.2em; color: #007bff; background: none; border: none; padding: 0; line-height: 1; }
+.btn-detalhes:hover { color: #0056b3; transform: scale(1.1); }
+
+.status-dot { width: 11px; height: 11px; border-radius: 50%; display: inline-block; border: 1px solid rgba(0,0,0,0.1); }
+.status-dot.green { background-color: #28a745; } .status-dot.red { background-color: #dc3545; } .status-dot.orange { background-color: #ffc107; }
+
+.plantoes-do-dia { margin-top: 28px; font-size: 0.88em; line-height: 1.7; max-height: 120px; overflow-y: auto; padding-right: 5px; margin-bottom: 5px; }
+.plantao-item { display: block; margin-bottom: 4px; padding: 1px 3px; border-radius: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.plantao-item.fixo { font-weight: bold; background-color: #e2e3e5; color: #333; }
+.plantao-item.bc { }
+.turno-icon { display: inline-block; margin-left: 5px; }
+.turno-icon.turno-N { color: #4c1d95; }
+.calendar .plantoes-do-dia .turno-icon { font-size: 1.6em; vertical-align: -0.3em; }
+
+.cell-availability-info { text-align: left; margin-left: 0; }
+.availability-slot { display: inline-block; font-size: 1.1em; font-weight: bold; margin-right: 4px; padding: 1px 5px; border-radius: 4px; line-height: 1; vertical-align: middle; }
+.availability-slot:last-child{ margin-right: 0; }
+.availability-slot.disponivel { color: #1d7b41; background-color: #e0f3e6; }
+.availability-slot.lotado { color: #842029; background-color: #fce6e8; opacity: 0.7; }
+.availability-slot .turno-icon { font-size: 1em; vertical-align: baseline; margin-right: 2px; margin-left: 0; }
+.availability-slot.availability-I.disponivel { color: #087990; background-color: #cff4fc; }
+
+.controles-escala { background: #fff; padding: 15px 20px; margin-bottom: 20px; border-radius: 5px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+.controles-escala div { margin-bottom: 10px; }
+.controles-escala p { margin: 0 0 8px 0; font-size: 1em; }
+.controles-escala strong { color: #0056b3; }
+#btnAvancarOrdem { margin-left: 15px; font-size: 0.9em; padding: 8px 12px; }
+.button-link .turno-icon, button .turno-icon { margin-right: 6px; vertical-align: -0.1em; font-size: 1em; }
+.controles-escala .button-link { padding: 8px 12px; font-size: 0.95em; }
+.controles-escala .button-link .turno-icon { font-size: 1.1em; vertical-align: -0.15em; margin-right: 4px; }
+
+.export-table { font-size: 0.85em; }
+.export-table th, .export-table td { padding: 4px; text-align: center; min-width: 35px; white-space: nowrap; }
+.export-table th.bombeiro-nome-col { text-align: left; min-width: 150px; position: sticky; left: 0; background-color: #e9ecef; z-index: 10; }
+.export-table td.bombeiro-nome-cell { text-align: left; font-weight: normal; position: sticky; left: 0; z-index: 5; }
+.export-table tr.fixo-row td.bombeiro-nome-cell { font-weight: bold; }
+.export-table td.fixo-ciclo { background-color: #cce5ff; font-weight: bold; color: #004085; }
+.export-table td.turno-D { background-color: #d1f7c4; color: #146c43; }
+.export-table td.turno-N { background-color: #d6d8db; color: #383d41; }
+.export-table td.turno-I { background-color: #d1ecf1; color: #0c5460; }
+.export-table tbody tr { background-color: #fff; }
+.export-table tbody tr:nth-child(odd) { background-color: #fff3cd; }
+.export-table tbody tr td.bombeiro-nome-cell { background-color: inherit; }
+.export-table tbody tr:hover { background-color: #e9ecef; }
+.export-table tbody tr:hover td.bombeiro-nome-cell { background-color: inherit; }
+
+.btn-add-excecao-fixo, .btn-restore-fixo { background: none; border: none; font-size: 1.1em; padding: 0 5px; margin-left: 10px; cursor: pointer; vertical-align: middle; line-height: 1; transition: color 0.2s ease, transform 0.1s ease; }
+.btn-add-excecao-fixo { color: #dc3545; } .btn-restore-fixo { color: #198754; }
+.btn-add-excecao-fixo:hover { color: #bb2d3b; transform: scale(1.1); }
+.btn-restore-fixo:hover { color: #157347; transform: scale(1.1); }
+button:disabled.btn-add-excecao-fixo, button:disabled.btn-restore-fixo { color: #ccc; cursor: not-allowed; }
+
+#toast-container { position: fixed; top: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+.toast { display: flex; align-items: center; padding: 12px 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 15px; opacity: 0; transform: translateX(100%); transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1); min-width: 250px; max-width: 350px; }
+.toast.show { opacity: 1; transform: translateX(0); }
+.toast.success { background-color: #28a745; }
+.toast.error { background-color: #dc3545; }
+.toast.info { background-color: #17a2b8; }
+.toast-icon { font-size: 22px; margin-right: 12px; }
+
+.confirm-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); display: flex; justify-content: center; align-items: center; z-index: 10001; }
+.confirm-modal-box { background-color: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25); text-align: center; max-width: 400px; width: 90%; animation: fadeIn 0.2s ease-out; }
+.confirm-modal-box h4 { margin-top: 0; margin-bottom: 10px; font-size: 1.2em; color: #333; }
+.confirm-modal-box p { margin-bottom: 25px; font-size: 1em; color: #555; line-height: 1.5; }
+.confirm-modal-buttons { display: flex; justify-content: center; gap: 15px; }
+.confirm-modal-buttons button { font-size: 0.95em; padding: 10px 25px; min-width: 110px; }
+
+/* ===== Modal de Detalhes: BLOCO ÚNICO E CORRIGIDO ===== */
+
+/* ARQUIVO CSS COMPLETO E DEFINITIVO (css/style.css) */
+
+body {
+    font-family: sans-serif; margin: 20px; background-color: #f4f4f4; color: #333;
+}
+h1, h2 { color: #333; border-bottom: 1px solid #ccc; padding-bottom: 5px; }
+a { color: #007bff; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ========================================= */
+/* ============== BRANDING ============== */
+/* ========================================= */
+.main-title-container {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* AUMENTADO DE 15px para 20px para mais espaço */
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+.main-logo {
+    height: 55px; /* AUMENTADO DE 40px para 55px */
+    width: auto;
+    flex-shrink: 0; /* Previne que a logo encolha */
+}
+.main-title-container h1 {
+    margin: 0;
+    border-bottom: none;
+    padding-bottom: 0;
+    font-size: 2.2em; /* Garante um tamanho de fonte consistente */
+}
+footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
+    color: #888;
+    font-size: 0.9em;
+}
+
+/* ... (o resto do seu CSS original continua aqui) ... */
+.flash-message { padding: 15px; margin-bottom: 20px; border: 1px solid transparent; border-radius: 4px; }
+.flash-message.success { color: #155724; background-color: #d4edda; border-color: #c3e6cb; }
+.flash-message.error { color: #721c24; background-color: #f8d7da; border-color: #f5c6cb; }
+.flash-message.warning { color: #856404; background-color: #fff3cd; border-color: #ffeeba; }
+table { width: 100%; border-collapse: collapse; margin-bottom: 20px; background-color: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+th { background-color: #e9ecef; color: #495057; }
+form { background-color: #fff; padding: 20px; border-radius: 5px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 20px; }
+label { display: block; margin-bottom: 5px; font-weight: bold; }
+input[type="text"], input[type="date"], input[type="number"], select, textarea { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 0.95em; }
+textarea { min-height: 80px; resize: vertical; }
+small { font-size: 0.8em; color: #6c757d; display: block; margin-top: -10px; margin-bottom: 10px; }
+button, input[type="submit"], .button-link { background-color: #007bff; color: white !important; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; font-size: 1em; text-decoration: none; display: inline-block; vertical-align: middle; transition: background-color 0.2s ease; }
+button:hover, input[type="submit"]:hover, .button-link:hover { background-color: #0056b3; text-decoration: none; }
+button:disabled { background-color: #cccccc; cursor: not-allowed; opacity: 0.7; }
+.btn-danger { background-color: #dc3545; } .btn-danger:hover { background-color: #c82333; }
+.btn-secondary { background-color: #6c757d; } .btn-secondary:hover { background-color: #5a6268; }
+.bombeiro-inativo td { color: #aaa; text-decoration: line-through; }
+#fixo-fields { display: none; padding-left: 20px; border-left: 3px solid #007bff; margin-top: 15px; margin-bottom: 15px; background-color: #f8f9fa; padding-top: 10px; padding-bottom: 1px; border-radius: 0 4px 4px 0; }
+#fixo-fields p { margin-top: 0; font-weight: bold; color: #333;}
+.visible { display: block !important; }
+.form-section { margin-bottom: 25px; padding: 20px; border: 1px solid #e9ecef; border-radius: 5px; background-color: #fdfdfd; }
+.form-section h3 { margin-top: 0; margin-bottom: 20px; font-size: 1.15em; color: #495057; border-bottom: 1px solid #dee2e6; padding-bottom: 10px; }
+.calendar-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.calendar-nav h2 { margin: 0; border: none; color: #495057; }
+.calendar { table-layout: fixed; }
+.calendar th { text-align: center; background-color: #6c757d; color: white; font-size: 0.9em; font-weight: 600; padding: 10px 5px; }
+.calendar td { height: 180px; vertical-align: top; position: relative; padding: 4px; font-size: 0.9em; background-color: #fff; border: 1px solid #eee; }
+.calendar td.weekend { background-color: #f8f9fa; }
+.calendar td.other-month { background-color: #e9ecef; color: #aaa; }
+.calendar td:hover { background-color: #fcfcfc; }
+.day-number { position: absolute; top: 5px; right: 7px; font-size: 1.1em; color: #555; font-weight: bold; z-index: 5; }
+.cell-icons-top { position: absolute; top: 4px; left: 4px; display: flex; align-items: center; gap: 6px; }
+.btn-detalhes { cursor: pointer; font-size: 1.2em; color: #007bff; background: none; border: none; padding: 0; line-height: 1; }
+.btn-detalhes:hover { color: #0056b3; transform: scale(1.1); }
+.status-dot { width: 11px; height: 11px; border-radius: 50%; display: inline-block; border: 1px solid rgba(0,0,0,0.1); }
+.status-dot.green { background-color: #28a745; } .status-dot.red { background-color: #dc3545; } .status-dot.orange { background-color: #ffc107; }
+.plantoes-do-dia { margin-top: 28px; font-size: 0.88em; line-height: 1.7; max-height: 120px; overflow-y: auto; padding-right: 5px; margin-bottom: 5px; }
+.plantao-item { display: block; margin-bottom: 4px; padding: 1px 3px; border-radius: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.plantao-item.fixo { font-weight: bold; background-color: #e2e3e5; color: #333; }
+.plantao-item.bc { }
+.turno-icon { display: inline-block; margin-left: 5px; }
+.turno-icon.turno-N { color: #4c1d95; }
+.calendar .plantoes-do-dia .turno-icon { font-size: 1.6em; vertical-align: -0.3em; }
+.cell-availability-info { text-align: left; margin-left: 0; }
+.availability-slot { display: inline-block; font-size: 1.1em; font-weight: bold; margin-right: 4px; padding: 1px 5px; border-radius: 4px; line-height: 1; vertical-align: middle; }
+.availability-slot:last-child{ margin-right: 0; }
+.availability-slot.disponivel { color: #1d7b41; background-color: #e0f3e6; }
+.availability-slot.lotado { color: #842029; background-color: #fce6e8; opacity: 0.7; }
+.availability-slot .turno-icon { font-size: 1em; vertical-align: baseline; margin-right: 2px; margin-left: 0; }
+.availability-slot.availability-I.disponivel { color: #087990; background-color: #cff4fc; }
+.controles-escala { background: #fff; padding: 15px 20px; margin-bottom: 20px; border-radius: 5px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+.controles-escala div { margin-bottom: 10px; }
+.controles-escala p { margin: 0 0 8px 0; font-size: 1em; }
+.controles-escala strong { color: #0056b3; }
+#btnAvancarOrdem { margin-left: 15px; font-size: 0.9em; padding: 8px 12px; }
+.button-link .turno-icon, button .turno-icon { margin-right: 6px; vertical-align: -0.1em; font-size: 1em; }
+.controles-escala .button-link { padding: 8px 12px; font-size: 0.95em; }
+.controles-escala .button-link .turno-icon { font-size: 1.1em; vertical-align: -0.15em; margin-right: 4px; }
+.modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.7); padding-top: 60px; }
+.modal-content { background-color: #fefefe; margin: 5% auto 15% auto; border: 1px solid #888; width: 90%; max-width: 650px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); position: relative; animation: fadeIn 0.3s; }
+@keyframes fadeIn { from {opacity: 0; transform: translateY(-20px);} to {opacity: 1; transform: translateY(0);} }
+.close-button { color: #aaa; position: absolute; top: 10px; right: 15px; font-size: 28px; font-weight: bold; line-height: 1; }
+.close-button:hover, .close-button:focus { color: #333; text-decoration: none; cursor: pointer; }
+.modal-header { padding: 15px 20px; border-bottom: 1px solid #e5e5e5; background-color: #f8f9fa; border-top-left-radius: 8px; border-top-right-radius: 8px; }
+.modal-header h3 { margin: 0; font-size: 1.25em; color: #333; }
+.modal-body { padding: 20px; }
+hr.modal-divider { border: 0; height: 1px; background-color: #eee; margin: 25px 0; }
+.modal-section h4 { margin-top: 0; margin-bottom: 15px; color: #0056b3; font-size: 1.1em; border-bottom: 1px dashed #ccc; padding-bottom: 5px; }
+#modalOcupantesList { list-style: none; padding: 0; margin: 0; }
+#modalOcupantesList li { padding: 10px 5px; border-bottom: 1px solid #f0f0f0; display: flex; justify-content: space-between; align-items: center; font-size: 0.95em; }
+#modalOcupantesList li:last-child { border-bottom: none; }
+#modalOcupantesList .bombeiro-info { flex-grow: 1; margin-right: 10px; }
+#modalOcupantesList .bombeiro-tipo { font-size: 0.85em; color: #666; margin-left: 5px; }
+#modalOcupantesList .turno-icon-wrapper { display: flex; align-items: center; }
+#modalOcupantesList .turno-icon { font-size: 1.3em; margin-left: 10px; min-width: 25px; text-align: center; }
+.btn-remover-plantao { background-color: #dc3545; color: white; border: none; padding: 2px 6px; font-size: 0.8em; cursor: pointer; border-radius: 3px; line-height: 1; margin-left: 15px; }
+.btn-remover-plantao:hover { background-color: #c82333; }
+#modalSelecao label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 0.9em; }
+#modalSelecao p { font-size: 0.95em; margin-bottom: 15px; color: #555; }
+#modalSelecao strong { color: #28a745; }
+#modalSelectBombeiro { margin-bottom: 20px; width: 100%; }
+.modal-botoes-turno { text-align: center; }
+.modal-botoes-turno button { background-color: #007bff; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-size: 0.95em; margin: 5px; transition: background-color 0.2s ease; }
+.modal-botoes-turno button:hover:not(:disabled) { background-color: #0056b3; }
+.modal-botoes-turno button:disabled { background-color: #cccccc; cursor: not-allowed; opacity: 0.7; }
+.modal-botoes-turno .vagas { font-size: 0.8em; margin-left: 5px; color: #eee; }
+button:disabled .vagas { color: #777; }
+.export-table { font-size: 0.85em; }
+.export-table th, .export-table td { padding: 4px; text-align: center; min-width: 35px; white-space: nowrap; }
+.export-table th.bombeiro-nome-col { text-align: left; min-width: 150px; position: sticky; left: 0; background-color: #e9ecef; z-index: 10; }
+.export-table td.bombeiro-nome-cell { text-align: left; font-weight: normal; position: sticky; left: 0; z-index: 5; }
+.export-table tr.fixo-row td.bombeiro-nome-cell { font-weight: bold; }
+.export-table td.fixo-ciclo { background-color: #cce5ff; font-weight: bold; color: #004085; }
+.export-table td.turno-D { background-color: #d1f7c4; color: #146c43; }
+.export-table td.turno-N { background-color: #d6d8db; color: #383d41; }
+.export-table td.turno-I { background-color: #d1ecf1; color: #0c5460; }
+.export-table tbody tr { background-color: #fff; }
+.export-table tbody tr:nth-child(odd) { background-color: #fff3cd; }
+.export-table tbody tr td.bombeiro-nome-cell { background-color: inherit; }
+.export-table tbody tr:hover { background-color: #e9ecef; }
+.export-table tbody tr:hover td.bombeiro-nome-cell { background-color: inherit; }
+.btn-add-excecao-fixo, .btn-restore-fixo { background: none; border: none; font-size: 1.1em; padding: 0 5px; margin-left: 10px; cursor: pointer; vertical-align: middle; line-height: 1; transition: color 0.2s ease, transform 0.1s ease; }
+.btn-add-excecao-fixo { color: #dc3545; } .btn-restore-fixo { color: #198754; }
+.btn-add-excecao-fixo:hover { color: #bb2d3b; transform: scale(1.1); }
+.btn-restore-fixo:hover { color: #157347; transform: scale(1.1); }
+button:disabled.btn-add-excecao-fixo, button:disabled.btn-restore-fixo { color: #ccc; cursor: not-allowed; }
+#modalOcupantesList li.tem-excecao .bombeiro-info { text-decoration: line-through; color: #888; font-style: italic; }
+.turno-icon.fixo-excecao { color: #6c757d; opacity: 0.8; }
+#toast-container { position: fixed; top: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+.toast { display: flex; align-items: center; padding: 12px 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 15px; opacity: 0; transform: translateX(100%); transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1); min-width: 250px; max-width: 350px; }
+.toast.show { opacity: 1; transform: translateX(0); }
+.toast.success { background-color: #28a745; }
+.toast.error { background-color: #dc3545; }
+.toast.info { background-color: #17a2b8; }
+.toast-icon { font-size: 22px; margin-right: 12px; }
+.confirm-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); display: flex; justify-content: center; align-items: center; z-index: 10001; }
+.confirm-modal-box { background-color: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25); text-align: center; max-width: 400px; width: 90%; animation: fadeIn 0.2s ease-out; }
+.confirm-modal-box h4 { margin-top: 0; margin-bottom: 10px; font-size: 1.2em; color: #333; }
+.confirm-modal-box p { margin-bottom: 25px; font-size: 1em; color: #555; line-height: 1.5; }
+.confirm-modal-buttons { display: flex; justify-content: center; gap: 15px; }
+.confirm-modal-buttons button { font-size: 0.95em; padding: 10px 25px; min-width: 110px; }
+
+/* ========================================= */
+/* ============== MODO ESCURO ============== */
+/* ========================================= */
+body.dark-mode { background-color: #0f172a; color: #e2e8f0; }
+
+.dark-mode h1, .dark-mode h2 { color: #f8fafc; }
+.dark-mode a { color: #38bdf8; }
+
+.dark-mode .main-title-container { border-bottom-color: #334155; }
+.dark-mode footer { border-top-color: #334155; color: #64748b; }
+.dark-mode .btn-secondary { background-color: #334155; color: #e2e8f0 !important; border: 1px solid #475569; }
+.dark-mode .btn-secondary:hover { background-color: #475569; }
+.dark-mode .controles-escala { background: #1e293b; box-shadow: none; border: 1px solid #334155; }
+.dark-mode .controles-escala p { color: #cbd5e1; }
+.dark-mode .controles-escala strong { color: #f8fafc; }
+.dark-mode .calendar-nav { background: none; }
+.dark-mode .calendar-nav h2 { color: #f1f5f9; }
+.dark-mode .calendar th { background-color: #334155; color: #cbd5e1; border-color: #475569; }
+.dark-mode .calendar td { background-color: #1e293b; border-color: #334155; }
+.dark-mode .calendar td:hover { background-color: #28364a; }
+.dark-mode .calendar td.weekend { background-color: #192333; }
+.dark-mode .calendar td.other-month { background-color: #0f172a; color: #475569; }
+.dark-mode .day-number { color: #94a3b8; }
+.dark-mode .btn-detalhes { color: #38bdf8; }
+.dark-mode .btn-detalhes:hover { color: #7dd3fc; }
+.dark-mode .plantoes-do-dia { color: #cbd5e1; }
+.dark-mode .turno-icon.turno-N { color: #fef08a; }
+.dark-mode .turno-icon.turno-D { color: #fcd34d; }
+.dark-mode .plantao-item.fixo { background-color: #334155; color: #f1f5f9; }
+.dark-mode .availability-slot.lotado { background-color: #452326; color: #fca5a5; opacity: 1; }
+.dark-mode .availability-slot.disponivel { background-color: #1c3d30; color: #a7f3d0; }
+.dark-mode .availability-slot.availability-I.disponivel, .dark-mode .availability-slot .turno-icon.turno-I { color: #bfdbfe; }
+.dark-mode .availability-slot.availability-I.disponivel { background-color: #1e40af; }
+.dark-mode .plantoes-do-dia::-webkit-scrollbar { width: 8px; }
+.dark-mode .plantoes-do-dia::-webkit-scrollbar-track { background: #1e293b; }
+.dark-mode .plantoes-do-dia::-webkit-scrollbar-thumb { background-color: #475569; border-radius: 4px; border: 2px solid #1e293b; }
+.dark-mode .plantoes-do-dia::-webkit-scrollbar-thumb:hover { background-color: #64748b; }
+.dark-mode form { background-color: #1e293b; box-shadow: none; border: 1px solid #334155; }
+.dark-mode table { background-color: #1e293b; box-shadow: none; }
+.dark-mode th { background-color: #334155; border-color: #475569; }
+.dark-mode td { border-color: #475569; }
+.dark-mode table tbody tr { background-color: #1e293b; }
+.dark-mode table tbody tr:nth-child(even) { background-color: #28364a; }
+.dark-mode table tbody tr:hover { background-color: #3e4c5f; }
+.dark-mode .bombeiro-inativo td { color: #64748b; }
+.dark-mode input[type="text"], .dark-mode input[type="date"], .dark-mode input[type="number"], .dark-mode select, .dark-mode textarea { background-color: #0f172a; border-color: #475569; color: #e2e8f0; }
+.dark-mode select option { background: #0f172a; color: #e2e8f0; }
+.dark-mode .modal-content, .dark-mode .confirm-modal-box { background-color: #1e293b; border-color: #334155; }
+.dark-mode .modal-header { background-color: #334155; border-bottom-color: #475569; }
+.dark-mode .modal-header h3, .dark-mode .close-button, .dark-mode .confirm-modal-box h4 { color: #f8fafc; }
+.dark-mode .close-button:hover { color: #fff; }
+.dark-mode .modal-body, .dark-mode .confirm-modal-box p { color: #e2e8f0; }
+.dark-mode hr.modal-divider { background-color: #334155; }
+.dark-mode .modal-section h4 { color: #7dd3fc; border-bottom-color: #475569; }
+.dark-mode #modalOcupantesList li { border-bottom-color: #334155; }
+.dark-mode #modalOcupantesList .bombeiro-tipo { color: #94a3b8; }
+.dark-mode #modalSelecao p { color: #cbd5e1; }
+.dark-mode #modalOcupantesList li.tem-excecao .bombeiro-info { color: #64748b; }
+.dark-mode .export-table tbody tr { background-color: #1e293b; }
+.dark-mode .export-table tbody tr:nth-child(odd) { background-color: #1e293b; }
+.dark-mode .export-table th, .dark-mode .export-table th.bombeiro-nome-col { background-color: #334155; }
+.dark-mode .export-table tbody tr:hover { background-color: #334155; }
+/* =================================================================== */
+/* ESTILOS DO MODAL DE DETALHES                                        */
+/* =================================================================== */
+
+/* O fundo escuro semi-transparente que cobre a tela inteira */
+.modal {
+  display: none; /* Começa escondido */
+  position: fixed; /* Fica fixo na tela, mesmo com rolagem */
+  z-index: 1000; /* Garante que fique na frente de tudo */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Fundo preto com 60% de opacidade */
+  
+  /* Centraliza o conteúdo do modal na tela */
+  
+  align-items: center;
+  justify-content: center;
+}
+
+/* A "caixa" principal do modal onde o conteúdo fica */
+.modal-content {
+  position: relative; /* Necessário para posicionar o botão de fechar */
+  background-color: #fefefe;
+  color: #333;
+  padding: 25px 30px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  
+  /* Controle de tamanho */
+  width: 90%; /* Ocupa 90% da tela em dispositivos pequenos */
+  max-width: 550px; /* Mas não passa de 550px em telas grandes */
+  
+  /* A MÁGICA PARA O TAMANHO: */
+  max-height: 90vh; /* A altura máxima é 90% da altura da tela */
+  overflow-y: auto; /* Se o conteúdo for maior, adiciona uma barra de rolagem vertical! */
+}
+
+/* Estilos para o tema escuro */
+body.dark-mode .modal-content {
+  background-color: #2c3e50; /* Um azul escuro */
+  color: #ecf0f1; /* Texto claro */
+  border: 1px solid #34495e;
+}
+
+/* Títulos dentro do modal */
+.modal-content h2,
+.modal-content h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #3498db; /* Um azul para destaque */
+}
+
+body.dark-mode .modal-content h2,
+body.dark-mode .modal-content h3 {
+    color: #5dade2;
+}
+
+.modal-content h3 {
+    font-size: 1.1em;
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
+    margin-top: 20px;
+}
+
+body.dark-mode .modal-content h3 {
+    border-top-color: #444;
+}
+
+/* Botão de fechar (o 'X' no canto) */
+.modal .close-button {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+  transition: color 0.2s;
+}
+
+.modal .close-button:hover,
+.modal .close-button:focus {
+  color: #e74c3c; /* Vermelho ao passar o mouse */
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Lista de ocupantes */
+#modalOcupantesList {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+#modalOcupantesList li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 5px;
+  border-bottom: 1px solid #eee;
+}
+body.dark-mode #modalOcupantesList li {
+    border-bottom-color: #34495e;
+}
+
+/* Dropdown de seleção de bombeiro */
+#modalSelectBombeiro {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+
+body.dark-mode #modalSelectBombeiro {
+  background-color: #34495e;
+  color: #ecf0f1;
+  border-color: #555;
+}
+
+/* Contêiner para os botões de turno */
+.modal-buttons {
+    display: flex;
+    flex-wrap: wrap; /* Permite que os botões quebrem a linha em telas pequenas */
+    gap: 10px; /* Espaço entre os botões */
+    justify-content: center;
+    margin-top: 15px;
+}
+
+/* Botões de turno (Diurno, Noturno, Integral) */
+.modal-buttons button {
+    flex-grow: 1; /* Faz os botões crescerem para ocupar o espaço */
+    padding: 12px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: all 0.2s;
+}
+
+.modal-buttons button:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+body.dark-mode .modal-buttons button:disabled {
+    background-color: #525c66;
+}
+
+#modalBtnD { background-color: #ffae00; color: #333; }
+#modalBtnN { background-color: #002041; color: #fff; }
+#modalBtnI { background-color: #058b00; color: #fff; }
+
+#modalBtnD:not(:disabled):hover { background-color: #f5e298; }
+#modalBtnN:not(:disabled):hover { background-color: #69829b; }
+#modalBtnI:not(:disabled):hover { background-color: #7ebe99; }
+
+/* ===== FIM DO BLOCO DO MODAL ===== */
+
+/* ========================================= */
+/* ============== MODO ESCURO ============== */
+/* ========================================= */
+body.dark-mode { background-color: #0f172a; color: #e2e8f0; }
+
+.dark-mode h1, .dark-mode h2 { color: #f8fafc; }
+.dark-mode a { color: #38bdf8; }
+
+.dark-mode .main-title-container { border-bottom-color: #334155; }
+.dark-mode footer { border-top-color: #334155; color: #64748b; }
+.dark-mode .btn-secondary { background-color: #334155; color: #e2e8f0 !important; border: 1px solid #475569; }
+.dark-mode .btn-secondary:hover { background-color: #475569; }
+.dark-mode .controles-escala { background: #1e293b; box-shadow: none; border: 1px solid #334155; }
+.dark-mode .controles-escala p { color: #cbd5e1; }
+.dark-mode .controles-escala strong { color: #f8fafc; }
+.dark-mode .calendar-nav { background: none; }
+.dark-mode .calendar-nav h2 { color: #f1f5f9; }
+.dark-mode .calendar th { background-color: #334155; color: #cbd5e1; border-color: #475569; }
+.dark-mode .calendar td { background-color: #1e293b; border-color: #334155; }
+.dark-mode .calendar td:hover { background-color: #28364a; }
+.dark-mode .calendar td.weekend { background-color: #192333; }
+.dark-mode .calendar td.other-month { background-color: #0f172a; color: #475569; }
+.dark-mode .day-number { color: #94a3b8; }
+.dark-mode .btn-detalhes { color: #38bdf8; }
+.dark-mode .btn-detalhes:hover { color: #7dd3fc; }
+.dark-mode .plantoes-do-dia { color: #cbd5e1; }
+.dark-mode .turno-icon.turno-N { color: #fef08a; }
+.dark-mode .turno-icon.turno-D { color: #fcd34d; }
+.dark-mode .plantao-item.fixo { background-color: #334155; color: #f1f5f9; }
+.dark-mode .availability-slot.lotado { background-color: #452326; color: #fca5a5; opacity: 1; }
+.dark-mode .availability-slot.disponivel { background-color: #1c3d30; color: #a7f3d0; }
+.dark-mode .availability-slot.availability-I.disponivel, .dark-mode .availability-slot .turno-icon.turno-I { color: #bfdbfe; }
+.dark-mode .availability-slot.availability-I.disponivel { background-color: #1e40af; }
+.dark-mode .plantoes-do-dia::-webkit-scrollbar { width: 8px; }
+.dark-mode .plantoes-do-dia::-webkit-scrollbar-track { background: #1e293b; }
+.dark-mode .plantoes-do-dia::-webkit-scrollbar-thumb { background-color: #475569; border-radius: 4px; border: 2px solid #1e293b; }
+.dark-mode .plantoes-do-dia::-webkit-scrollbar-thumb:hover { background-color: #64748b; }
+.dark-mode form { background-color: #1e293b; box-shadow: none; border: 1px solid #334155; }
+.dark-mode table { background-color: #1e293b; box-shadow: none; }
+.dark-mode th { background-color: #334155; border-color: #475569; }
+.dark-mode td { border-color: #475569; }
+.dark-mode table tbody tr { background-color: #1e293b; }
+.dark-mode table tbody tr:nth-child(even) { background-color: #28364a; }
+.dark-mode table tbody tr:hover { background-color: #3e4c5f; }
+.dark-mode .bombeiro-inativo td { color: #64748b; }
+
+.dark-mode input[type="text"], .dark-mode input[type="date"], .dark-mode input[type="number"], .dark-mode select, .dark-mode textarea { background-color: #0f172a; border-color: #475569; color: #e2e8f0; }
+.dark-mode select option { background: #0f172a; color: #e2e8f0; }
+
+.dark-mode .confirm-modal-box { background-color: #1e293b; border-color: #334155; }
+.dark-mode .confirm-modal-box h4 { color: #f8fafc; }
+.dark-mode .confirm-modal-box p { color: #e2e8f0; }
+
+.dark-mode .export-table tbody tr { background-color: #1e293b; }
+.dark-mode .export-table tbody tr:nth-child(odd) { background-color: #1e293b; }
+.dark-mode .export-table th, .dark-mode .export-table th.bombeiro-nome-col { background-color: #334155; }
+.dark-mode .export-table tbody tr:hover { background-color: #334155; }
+
+/* dark mode para o novo modal */
+body.dark-mode .modal-content{
+  background: #1e293b;
+  color: #e2e8f0;
+  border-color: #334155;
+}
+body.dark-mode .modal .close-button{ color:#cbd5e1; }
+body.dark-mode .modal .close-button:hover{ color:#ef4444; }
+body.dark-mode .modal-content h2,
+body.dark-mode .modal-content h3{ color:#5dade2; }
+body.dark-mode #modalOcupantesList li{ border-bottom-color:#334155; }
+body.dark-mode #modalOcupantesList .bombeiro-tipo { color: #94a3b8; }
+body.dark-mode #modalSelecao p { color: #cbd5e1; }
+body.dark-mode #modalOcupantesList li.tem-excecao .bombeiro-info { color: #64748b; }
+body.dark-mode .modal-buttons button:disabled, body.dark-mode .modal-botoes-turno button:disabled { background-color: #334155; }
+body.dark-mode .btn-remover-plantao { color: #f15b6c; }
+body.dark-mode .btn-remover-plantao:hover { color: #f899a4; }
+
+/* ===== Modal compacto (layout da imagem) ===== */
+.modal.compact .modal-content{
+  max-width: 620px;
+  width: 92vw;
+  padding: 20px 24px;
+}
+
+/* Linha do título + ações à direita */
+.modal.compact .modal-topline{
+  display:flex; align-items:center; justify-content:space-between;
+  margin: 6px 0 8px;
+}
+.modal.compact .modal-topline h3{
+  margin:0; font-size:1.05rem; border:0; padding:0;
+}
+
+/* Botões “chips” (☀️ 🌑 📅) no topo – opcionais */
+.modal.compact .topline-actions{ display:flex; gap:10px; }
+.modal.compact .chip{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:6px 10px; border-radius:999px;
+  border:1px solid #d1d5db; background:#fff; cursor:pointer; font-size:.95rem;
+}
+.modal.compact .chip:disabled{ opacity:.55; cursor:not-allowed; }
+.modal.compact .chip .vagas{ font-size:.8rem; opacity:.7; }
+
+/* Lista em linha única com ações à direita */
+.modal.compact #modalOcupantesList li{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:10px 0; border-bottom:1px solid #eee;
+}
+.modal.compact #modalOcupantesList li:last-child{ border-bottom:0; }
+.modal.compact .turno-icon-wrapper{ display:inline-flex; gap:12px; }
+
+/* *** Importante: NÃO esconder o “Registrar Novo Plantão” no compacto *** */
+/* (Se quiser esconder, descomente a regra abaixo)
+.modal.compact #modalSelecao,
+.modal.compact .modal-divider{ display:none !important; }
+*/
