@@ -1,12 +1,13 @@
 <?php
-session_start();
+require_once __DIR__ . '/includes/session.php';
 $error = '';
+$msg   = $_GET['msg'] ?? '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $usuario = $_POST['user'] ?? '';
     $senha   = $_POST['pass'] ?? '';
 
-    require_once 'includes/db.php';
+    require_once __DIR__ . '/includes/db.php';
 
     if (!$conn) {
         $error = 'Erro ao conectar ao banco de dados.';
@@ -18,10 +19,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $result = $stmt->get_result();
 
             if ($row = $result->fetch_assoc()) {
-                if ($row['ativo'] == 1 && password_verify($senha, $row['senha_hash'])) {
-                    $_SESSION['usuario_id']   = $row['id'];
+                if ((int)$row['ativo'] === 1 && password_verify($senha, $row['senha_hash'])) {
+                    session_regenerate_id(true);
+                    $_SESSION['usuario_id']   = (int)$row['id'];
                     $_SESSION['usuario_nome'] = $row['nome'];
                     $_SESSION['usuario_tipo'] = $row['tipo'];
+                    $_SESSION['last_activity'] = time();
                     header('Location: escala.php');
                     exit;
                 } else {
@@ -156,8 +159,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <p class="hint">Acesse sua conta para continuar</p>
 
             <form id="loginForm" method="post" novalidate>
-                <div class="error" id="errorBox" style="<?php echo $error ? 'display:block;' : 'display:none;'; ?>">
-                    <?php echo $error ?: ''; ?>
+                <div class="error" id="errorBox" style="<?php echo ($error || $msg) ? 'display:block;' : 'display:none;'; ?>">
+                    <?php echo htmlspecialchars($error ?: $msg, ENT_QUOTES, 'UTF-8'); ?>
                 </div>
 
                 <div class="field">
@@ -186,7 +189,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <div class="row">
                     <label class="remember"><input id="remember" type="checkbox" /> Manter conectado</label>
-                    <a href="#" onclick="alert('Fluxo de recuperação'); return false;">Esqueci minha senha</a>
+                
                 </div>
 
                 <button class="btn" type="submit">Entrar</button>

@@ -1,5 +1,11 @@
 <?php
-// ARQUIVO PRINCIPAL ATUALIZADO COM O KIT FAVICON COMPLETO
+// === INDEX PRINCIPAL (VERSÃO MESCLADA) ===
+// Combina autenticação de sessão + require_login (do colega)
+// com o botão e rotina de Sincronização Google (sua versão)
+// e mantém o kit de favicon e toda a lógica de calendário.
+
+require_once __DIR__ . '/includes/session.php';
+require_once __DIR__ . '/require_login.php';
 
 require_once __DIR__ . '/includes/db.php';
 require_once __DIR__ . '/includes/funcoes.php';
@@ -42,7 +48,7 @@ if ($stmt_plantoes = mysqli_prepare($conn, $sql_plantoes_mes)) {
     $result_plantoes = mysqli_stmt_get_result($stmt_plantoes);
     while ($row = mysqli_fetch_assoc($result_plantoes)) {
         if (!isset($plantoes_mes[$row['data']])) $plantoes_mes[$row['data']] = [];
-        // indexado por bombeiro_id apenas para agrupar; o valor contém todos os campos
+        // indexa por bombeiro_id para agrupar; valor contém todos os campos
         $plantoes_mes[$row['data']][$row['bombeiro_id']] = $row;
     }
     mysqli_free_result($result_plantoes);
@@ -128,13 +134,11 @@ $dias_semana = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
     <title>Escala de Plantões - <?php echo htmlspecialchars($nome_mes) . ' ' . $ano_atual; ?></title>
     <link rel="stylesheet" href="css/style.css">
 
-    <!-- =================================================================== -->
-    <!-- KIT FAVICON COMPLETO PARA MÁXIMA QUALIDADE E COMPATIBILIDADE -->
+    <!-- KIT FAVICON COMPLETO -->
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="shortcut icon" href="favicon.ico">
-    <!-- =================================================================== -->
 </head>
 <body>
     <div class="main-title-container">
@@ -148,12 +152,10 @@ $dias_semana = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
                 Ordem deste mês iniciaria com:
                 <select id="selectInicioOrdem" style="max-width:320px;">
                     <?php
-                    // monta <option> com os BCs na ordem
                     if (!empty($ordem_mes_ids)) {
                         foreach ($ordem_mes_ids as $idx => $bid) {
                             $nome = get_bombeiro_nome($bid, $conn);
                             if (!$nome) continue;
-                            $sel = ($proximo_sugerido_id === $bid) ? '' : ''; // só pra manter a referência, seleção real mais abaixo
                             echo '<option value="'.(int)$bid.'">'.htmlspecialchars($nome).'</option>';
                         }
                     } else {
@@ -174,15 +176,12 @@ $dias_semana = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
         </div>
         
         <script>
-        // selecionar no combo o que hoje seria o "início" de referência
+        // Seleciona no combo o início salvo (se houver)
         (function() {
             const sel = document.getElementById('selectInicioOrdem');
             if (!sel) return;
-        
-            // se existir um início salvo, seleciona; senão, seleciona o 1º da lista
             <?php
-                // tenta ler um config já salvo; se não existir, deixa o 1º option
-                $inicio_salvo_id = get_config('bc_inicio_ordem_id', $conn); // se não tiver essa config ainda, retorna null
+                $inicio_salvo_id = get_config('bc_inicio_ordem_id', $conn);
                 $inicio_js = $inicio_salvo_id ? (int)$inicio_salvo_id : 0;
             ?>
             const inicioSalvo = <?php echo json_encode($inicio_js); ?>;
@@ -199,6 +198,11 @@ $dias_semana = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
             <a href="bombeiros.php" class="button-link btn-secondary" style="margin-left: 10px;" title="Adicionar ou editar bombeiros">
                 <span class="turno-icon">⚙️</span> Gerenciar
             </a>
+            <!-- Botão de Sincronização Google (da sua versão) -->
+            <button id="btnSyncGoogle" class="button-link btn-secondary" style="margin-left:10px" title="Sincronizar com Google">
+              <span class="turno-icon">🔀</span> Sincronizar
+            </button>
+
             <button id="theme-toggle" class="button-link btn-secondary" style="margin-left: 10px;" title="Alternar tema claro/escuro">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="vertical-align: -0.1em;">
                     <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311a1.464 1.464 0 0 1-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872-2.105l-.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.858 2.929 2.929 0 0 1 0 5.858z"/>
@@ -357,6 +361,52 @@ $dias_semana = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
     <footer>
         <p>Sistema de Escala de Plantões - Desenvolvido por Luiz Fernando Hohn</p>
     </footer>
+
+    <!-- Mantém a sessão ativa somente se houver interação do usuário (do colega) -->
+    <script>
+      let active = false;
+      ['mousemove','keydown','click','scroll','touchstart','touchmove'].forEach(ev=>{
+        addEventListener(ev, ()=> active = true, {passive:true});
+      });
+      setInterval(()=>{
+        if (!active) return;
+        active = false;
+        fetch('session_ping.php', {method:'POST', credentials:'same-origin'});
+      }, 120_000); // a cada 120s, se houve atividade
+    </script>
+
+    <!-- Rotina de Sincronização com Google (da sua versão) -->
+    <script>
+    (function () {
+      const btn = document.getElementById('btnSyncGoogle');
+      if (!btn) return;
+
+      btn.addEventListener('click', async () => {
+        const original = btn.innerHTML;
+        btn.disabled = true;
+        btn.innerHTML = 'Sincronizando...';
+
+        const m = <?php echo (int)$mes_atual; ?>;
+        const y = <?php echo (int)$ano_atual; ?>;
+
+        try {
+          const resp = await fetch(`sync_to_google.php?month=${m}&year=${y}&auto=1`, { method: 'GET' });
+          const raw = await resp.text();
+          let data;
+          try { data = JSON.parse(raw); } catch { throw new Error('Retorno não-JSON: ' + raw.slice(0,200)); }
+
+          const ok = Array.isArray(data) && data.some(x => x && x.ok === true);
+          showToast(ok ? 'Sincronização concluída.' : 'Sincronização terminou com erro. Veja o console.');
+          console.log('sync_to_google.php retorno:', data);
+        } catch (e) {
+          showToast('Erro na sincronização: ' + (e.message || e));
+        } finally {
+          btn.disabled = false;
+          btn.innerHTML = original;
+        }
+      });
+    })();
+    </script>
 
     <script src="js/script.js"></script>
 </body>

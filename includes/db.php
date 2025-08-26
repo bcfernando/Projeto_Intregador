@@ -1,6 +1,6 @@
 <?php
 // Configurações do Banco de Dados
-define('DB_SERVER', 'localhost');
+define('DB_SERVER', 'localhost'); // Normalmente localhost
 define('DB_USERNAME', 'root'); // Usuário padrão do XAMPP
 define('DB_PASSWORD', '');     // Senha padrão do XAMPP (vazia)
 define('DB_NAME', 'escala_db'); // Nome do seu banco de dados - CONFIRMADO
