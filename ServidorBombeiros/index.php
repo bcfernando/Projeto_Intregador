@@ -1,4 +1,5 @@
 <?php
+ /* Login */
 require_once __DIR__ . '/includes/session.php';
 $error = '';
 $msg   = $_GET['msg'] ?? '';
