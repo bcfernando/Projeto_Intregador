@@ -1,9 +1,4 @@
 <?php
-// === INDEX PRINCIPAL (VERSÃO MESCLADA) ===
-// Combina autenticação de sessão + require_login (do colega)
-// com o botão e rotina de Sincronização Google (sua versão)
-// e mantém o kit de favicon e toda a lógica de calendário.
-
 require_once __DIR__ . '/includes/session.php';
 require_once __DIR__ . '/require_login.php';
 
