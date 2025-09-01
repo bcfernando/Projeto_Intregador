@@ -1,5 +1,4 @@
 <?php
-// ARQUIVO DE EXPORTAÇÃO ATUALIZADO COM O KIT FAVICON COMPLETO
 require_once __DIR__ . '/includes/db.php';
 if (file_exists(__DIR__ . '/includes/funcoes.php')) {
     require_once __DIR__ . '/includes/funcoes.php';
